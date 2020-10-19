@@ -14,26 +14,26 @@ plugin_package = "octoprint_stats"
 plugin_name = "OctoPrint-Stats"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "2.0.2"
+plugin_version = "3.0.0"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
 plugin_description = """Statistics of your 3D Printer"""
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
-plugin_author = "Anderson Silva"
+plugin_author = "Alex Verrico"
 
 # The plugin's author's mail address.
-plugin_author_email = "ams.bra@gmail.com"
+plugin_author_email = "contact@alexverrico.com"
 
 # The plugin's homepage URL. Can be overwritten within OctoPrint's internal data via __plugin_url__ in the plugin module
-plugin_url = "https://github.com/amsbr/OctoPrint-Stats"
+plugin_url = "https://github.com/AlexVerrico/octoprint-stats/"
 
 # The plugin's license. Can be overwritten within OctoPrint's internal data via __plugin_license__ in the plugin module
 plugin_license = "AGPLv3"
 
 # Any additional requirements besides OctoPrint should be listed here
-plugin_requires = ["tinydb", "pandas"]
+plugin_requires = ["tinydb", "pandas", "numpy"]
 
 ### --------------------------------------------------------------------------------------------------------------------
 ### More advanced options that you usually shouldn't have to touch follow after this point

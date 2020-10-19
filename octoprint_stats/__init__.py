@@ -1,9 +1,9 @@
 # coding=utf-8
 from __future__ import absolute_import
 
-__author__ = "Anderson Silva <ams.bra@gmail.com>"
+__author__ = "Alex Verrico <contact@alexverrico.com>"
 __license__ = "GNU Affero General Public License http://www.gnu.org/licenses/agpl.html"
-__copyright__ = "Copyright (C) 2015 Anderson Silva - AGPLv3 License"
+__copyright__ = "Copyright (C) 2015-2019 Anderson Silva, Copyright (C) 2020 ALex Verrico - AGPLv3 License"
 
 import octoprint.plugin
 import octoprint.events
@@ -1004,12 +1004,12 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 
                 # version check: github repository
                 type="github_release",
-                user="amsbr",
-                repo="OctoPrint-Stats",
+                user="AlexVerrico",
+                repo="octoprint-stats",
                 current=self._plugin_version,
 
                 # update method: pip w/ dependency links
-                pip="https://github.com/amsbr/OctoPrint-Stats/archive/{target_version}.zip"
+                pip="https://github.com/AlexVerrico/octoprint-stats/archive/{target_version}.zip"
             )
         )
 
@@ -1018,7 +1018,8 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
 # can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
 __plugin_name__ = "Printer Stats"
-__plugin_version__ = "2.0.2"
+__plugin_version__ = "3.0.0"
+__plugin_pythoncompat__ = ">=2.7,<4"
 __plugin_description__ = "Statistics of your 3D Printer"
 
 def __plugin_load__():
