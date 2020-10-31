@@ -20,10 +20,13 @@ import pandas as pd
 class StatsDB:
     def __init__(self, plugin):
         self.DB_NAME_V1 = plugin._settings.global_get_basefolder("logs") + "/octoprint_stats.db"
-        self.DB_NAME = plugin._settings.global_get_basefolder("logs") + "/octoprint_stats.json"
+        self.DB_NAME_V2 = plugin._settings.global_get_basefolder("logs") + "/octoprint_stats.json"
+        self.DB_NAME = plugin._settings.global_get_basefolder("data") + "/octoprint_stats.json"
         
         if os.path.exists(self.DB_NAME_V1) == True:
             self.migrate_v1()
+        if os.path.exists(self.DB_NAME_V2) == True:
+            os.rename(self.DB_NAME_V2, self.DB_NAME)
         
     def migrate_v1(self):
         conn = sqlite3.connect(self.DB_NAME_V1)
