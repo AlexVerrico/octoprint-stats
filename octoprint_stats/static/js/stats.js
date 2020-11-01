@@ -945,7 +945,6 @@ $(function () {
         }
 
         self.statsSendFilter = function () {
-            window.statFull.clear();
             document.getElementById('canvas_fullstat').remove();
             var canvFull = document.createElement('canvas');
             canvFull.id = 'canvas_fullstat';
@@ -954,7 +953,6 @@ $(function () {
             canvFull.height = '300';
             document.getElementById('td_fullstat').appendChild(canvFull);
 
-            window.statHourly.clear();
             document.getElementById('canvas_hourlystat').remove();
             var canvHourly = document.createElement('canvas');
             canvHourly.id = 'canvas_hourlystat';
@@ -963,7 +961,6 @@ $(function () {
             canvHourly.height = '300';
             document.getElementById('td_hourlystat').appendChild(canvHourly);
 
-            window.statDaily.clear();
             document.getElementById('canvas_dailystat').remove();
             var canvDaily = document.createElement('canvas');
             canvDaily.id = 'canvas_dailystat';
@@ -972,7 +969,6 @@ $(function () {
             canvDaily.height = '300';
             document.getElementById('td_dailystat').appendChild(canvDaily);
 
-            window.statPrint.clear();
             document.getElementById('canvas_printstat').remove();
             var canvPrint = document.createElement('canvas');
             canvPrint.id = 'canvas_printstat';
@@ -981,7 +977,6 @@ $(function () {
             canvPrint.height = '300';
             document.getElementById('td_printstat').appendChild(canvPrint);
 
-            window.statTime.clear();
             document.getElementById('canvas_timestat').remove();
             var canvTime = document.createElement('canvas');
             canvTime.id = 'canvas_timestat';
@@ -990,7 +985,6 @@ $(function () {
             canvTime.height = '300';
             document.getElementById('td_timestat').appendChild(canvTime);
 
-            window.statdkWh.clear();
             document.getElementById('canvas_dkwhstat').remove();
             var canvdkWh = document.createElement('canvas');
             canvdkWh.id = 'canvas_dkwhstat';
@@ -999,7 +993,6 @@ $(function () {
             canvdkWh.height = '300';
             document.getElementById('td_dkwhstat').appendChild(canvdkWh);
 
-            window.statmkWh.clear();
             document.getElementById('canvas_mkwhstat').remove();
             var canvmkWh = document.createElement('canvas');
             canvmkWh.id = 'canvas_mkwhstat';
