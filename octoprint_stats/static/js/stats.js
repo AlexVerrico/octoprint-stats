@@ -32,29 +32,29 @@ $(function () {
         window.sideStatDay = undefined;
         window.sideStatkWh = undefined;
 
-        fillColor['CONNECTED'] = 'rgba(159,247,160,0.5)';
+        fillColor['CONNECTED'] = 'rgba(142,210,201,0.5)';
         label['CONNECTED'] = 'Connection';
         stack['CONNECTED'] = 'Conn';
 
-        fillColor['DISCONNECTED'] = 'rgba(179,171,161,0.5)';
+        fillColor['DISCONNECTED'] = 'rgba(252,244,217,0.5)';
         label['DISCONNECTED'] = 'Disconnection';
         stack['DISCONNECTED'] = 'Conn';
 
         fillColor['UPLOAD'] = 'rgba(52,152,219,0.5)';
         label['UPLOAD'] = 'Upload';
 
-        fillColor['PRINT_STARTED'] = 'rgba(0,20,166,0.5)';
+        fillColor['PRINT_STARTED'] = 'rgba(88,40,128,0.5)';
         label['PRINT_STARTED'] = 'Started';
 
-        fillColor['PRINT_DONE'] = 'rgba(49,154,37,0.5)';
+        fillColor['PRINT_DONE'] = 'rgba(0,170,20,0.5)';
         label['PRINT_DONE'] = 'Complete';
         stack['PRINT_DONE'] = 'Print';
 
-        fillColor['PRINT_FAILED'] = 'rgba(231,76,60,0.5)';
+        fillColor['PRINT_FAILED'] = 'rgba(255,122,90,0.5)';
         label['PRINT_FAILED'] = 'Failed';
         stack['PRINT_FAILED'] = 'Print';
 
-        fillColor['PRINT_CANCELLED'] = 'rgba(217,180,95,0.5)';
+        fillColor['PRINT_CANCELLED'] = 'rgba(255,184,95,0.5)';
         label['PRINT_CANCELLED'] = 'Cancelled';
         stack['PRINT_CANCELLED'] = 'Print';
 
@@ -945,7 +945,6 @@ $(function () {
         }
 
         self.statsSendFilter = function () {
-            window.statFull.clear();
             document.getElementById('canvas_fullstat').remove();
             var canvFull = document.createElement('canvas');
             canvFull.id = 'canvas_fullstat';
@@ -954,7 +953,6 @@ $(function () {
             canvFull.height = '300';
             document.getElementById('td_fullstat').appendChild(canvFull);
 
-            window.statHourly.clear();
             document.getElementById('canvas_hourlystat').remove();
             var canvHourly = document.createElement('canvas');
             canvHourly.id = 'canvas_hourlystat';
@@ -963,7 +961,6 @@ $(function () {
             canvHourly.height = '300';
             document.getElementById('td_hourlystat').appendChild(canvHourly);
 
-            window.statDaily.clear();
             document.getElementById('canvas_dailystat').remove();
             var canvDaily = document.createElement('canvas');
             canvDaily.id = 'canvas_dailystat';
@@ -972,7 +969,6 @@ $(function () {
             canvDaily.height = '300';
             document.getElementById('td_dailystat').appendChild(canvDaily);
 
-            window.statPrint.clear();
             document.getElementById('canvas_printstat').remove();
             var canvPrint = document.createElement('canvas');
             canvPrint.id = 'canvas_printstat';
@@ -981,7 +977,6 @@ $(function () {
             canvPrint.height = '300';
             document.getElementById('td_printstat').appendChild(canvPrint);
 
-            window.statTime.clear();
             document.getElementById('canvas_timestat').remove();
             var canvTime = document.createElement('canvas');
             canvTime.id = 'canvas_timestat';
@@ -990,7 +985,6 @@ $(function () {
             canvTime.height = '300';
             document.getElementById('td_timestat').appendChild(canvTime);
 
-            window.statdkWh.clear();
             document.getElementById('canvas_dkwhstat').remove();
             var canvdkWh = document.createElement('canvas');
             canvdkWh.id = 'canvas_dkwhstat';
@@ -999,7 +993,6 @@ $(function () {
             canvdkWh.height = '300';
             document.getElementById('td_dkwhstat').appendChild(canvdkWh);
 
-            window.statmkWh.clear();
             document.getElementById('canvas_mkwhstat').remove();
             var canvmkWh = document.createElement('canvas');
             canvmkWh.id = 'canvas_mkwhstat';
