@@ -21,10 +21,10 @@ class StatsDB:
     def __init__(self, plugin):
         self.DB_NAME_V1 = plugin._settings.global_get_basefolder("logs") + "/octoprint_stats.db"
         self.DB_NAME = plugin._settings.global_get_basefolder("logs") + "/octoprint_stats.json"
-        
+
         if os.path.exists(self.DB_NAME_V1) == True:
             self.migrate_v1()
-        
+
     def migrate_v1(self):
         conn = sqlite3.connect(self.DB_NAME_V1)
         db = conn.cursor()
@@ -40,10 +40,10 @@ class StatsDB:
             event_time = row[0]
             port = row[1]
             baudrate = row[2]
-            
-            eventData = {'event_type': 'CONNECTED', 
+
+            eventData = {'event_type': 'CONNECTED',
                          'data': {'event_time': event_time.__str__(), 'port': port, 'baudrate': baudrate}}
-                        
+
             events.insert(eventData)
 
         # Migrate disconnected
@@ -52,12 +52,12 @@ class StatsDB:
         rows = db.fetchall()
         for row in rows:
             event_time = row[0]
-            
-            eventData = {'event_type': 'DISCONNECTED', 
+
+            eventData = {'event_type': 'DISCONNECTED',
                          'data': {'event_time': event_time.__str__()}}
-                        
+
             events.insert(eventData)
-            
+
         # Migrate upload
         sql = "SELECT event_time, file, target FROM upload"
         db.execute(sql)
@@ -66,10 +66,10 @@ class StatsDB:
             event_time = row[0]
             file = row[1]
             target = row[2]
-            
-            eventData = {'event_type': 'UPLOAD', 
+
+            eventData = {'event_type': 'UPLOAD',
                          'data': {'event_time': event_time.__str__(), 'file': file, 'target': target}}
-                        
+
             events.insert(eventData)
 
         # Migrate print_started
@@ -83,12 +83,12 @@ class StatsDB:
             bed_target = row[3]
             tool0_target = row[4]
             tool1_target = row[5]
-            
-            eventData = {'event_type': 'PRINT_STARTED', 
+
+            eventData = {'event_type': 'PRINT_STARTED',
                          'data': {'event_time': event_time.__str__(), 'file': file, 'target': target}}
-                        
+
             events.insert(eventData)
-        
+
         # Migrate print_done
         sql = "SELECT event_time, file, ptime, origin, bed_actual, tool0_actual, tool1_actual, tool0_volume, tool1_volume, tool0_length, tool1_length FROM print_done"
         db.execute(sql)
@@ -106,9 +106,9 @@ class StatsDB:
             tool0_length = row[9]
             tool1_length = row[10]
 
-            eventData = {'event_type': 'PRINT_DONE', 
+            eventData = {'event_type': 'PRINT_DONE',
                          'data': {'event_time': event_time.__str__(), 'file': file, 'ptime': ptime, 'origin': origin, 'bed_actual': bed_actual, 'tool0_actual': tool0_actual, 'tool1_actual': tool1_actual, 'tool0_volume': tool0_volume, 'tool1_volume': tool1_volume, 'tool0_length': tool0_length, 'tool1_length': tool1_length}}
-                        
+
             events.insert(eventData)
 
         # Migrate print_failed
@@ -120,9 +120,9 @@ class StatsDB:
             file = row[1]
             origin = row[2]
 
-            eventData = {'event_type': 'PRINT_FAILED', 
+            eventData = {'event_type': 'PRINT_FAILED',
                          'data': {'event_time': event_time.__str__(), 'file': file, 'origin': origin}}
-                        
+
             events.insert(eventData)
 
         # Migrate print_cancelled
@@ -134,11 +134,11 @@ class StatsDB:
             file = row[1]
             origin = row[2]
 
-            eventData = {'event_type': 'PRINT_CANCELLED', 
+            eventData = {'event_type': 'PRINT_CANCELLED',
                          'data': {'event_time': event_time.__str__(), 'file': file, 'origin': origin}}
-                        
+
             events.insert(eventData)
-      
+
         # Migrate print_paused
         sql = "SELECT event_time, file, origin FROM print_paused"
         db.execute(sql)
@@ -148,11 +148,11 @@ class StatsDB:
             file = row[1]
             origin = row[2]
 
-            eventData = {'event_type': 'PRINT_PAUSED', 
+            eventData = {'event_type': 'PRINT_PAUSED',
                          'data': {'event_time': event_time.__str__(), 'file': file, 'origin': origin}}
-                        
+
             events.insert(eventData)
-      
+
         # Migrate print_resumed
         sql = "SELECT event_time, file, origin FROM print_resumed"
         db.execute(sql)
@@ -162,9 +162,9 @@ class StatsDB:
             file = row[1]
             origin = row[2]
 
-            eventData = {'event_type': 'PRINT_RESUMED', 
+            eventData = {'event_type': 'PRINT_RESUMED',
                          'data': {'event_time': event_time.__str__(), 'file': file, 'origin': origin}}
-                        
+
             events.insert(eventData)
 
         # Migrate error
@@ -175,11 +175,11 @@ class StatsDB:
             event_time = row[0]
             perror = row[1]
 
-            eventData = {'event_type': 'ERROR', 
+            eventData = {'event_type': 'ERROR',
                          'data': {'event_time': event_time.__str__(), 'error': perror}}
-                        
+
             events.insert(eventData)
-            
+
         os.rename(self.DB_NAME_V1, self.DB_NAME_V1 + ".bak")
 
     def execute(self, data, document):
@@ -187,7 +187,7 @@ class StatsDB:
         db = TinyDB(self.DB_NAME)
         doc = db.table(document)
         doc.insert(data)
-    
+
     def query(self, search_data, document):
         # DB
         db = TinyDB(self.DB_NAME)
@@ -199,13 +199,13 @@ class StatsDB:
         db = TinyDB(self.DB_NAME)
         doc = db.table(document)
         return doc.count(search_data)
-      
+
     def getData(self, data):
         resData = []
-        
+
         for row in data:
             resData.append(row["data"])
-            
+
         return resData
 
 
@@ -245,7 +245,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 
     def get_settings_defaults(self):
         # Default autorefresh false
-        
+
         return dict(
           pcbheatbed="98.5",
           hotend="32.5",
@@ -300,7 +300,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             self.refreshSidePrint()
             self.refreshSideDay()
             self.refreshSidekWh()
-            
+
             if hasattr(self, 'fullDataset'):
                 return jsonify(dict(
                     fullDataset=self.fullDataset,
@@ -372,7 +372,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             calc = round(((float(x) / 60 / 60) * float(total)) / 1000, 3)
         except Exception:
             calc = 0
-            
+
         return calc
 
     def formatNum(self, x):
@@ -383,20 +383,20 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
                 return float(x)
         except Exception:
             return 0
-    
+
     def filterEvent(self, event, group, filterp = 'current_year'):
         search = Query()
 
         search_data = (search.event_type == event)
         event_data = self.statDB.getData(self.statDB.query(search_data, 'events'))
         event_df = pd.DataFrame(event_data)
-        
+
         if (event == "PRINT_DONE") or (event == "PRINT_CANCELLED") or (event == "PRINT_FAILED"):
             if 'ptime' in event_df:
                 event_df['ptime'] = event_df['ptime'].apply(self.formatNum)
             else:
                 event_df['ptime'] = 0
-        
+
         if(event_data != []):
             event_df["event_y"] = event_df["event_time"].apply(self.parseYear)
             event_df["event_ym"] = event_df["event_time"].apply(self.parseYearMonth)
@@ -424,11 +424,11 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             elif filterp == 'last_month':
                 event_df = event_df[event_df.event_ym == (datetime.datetime.today() - datetime.timedelta(1 * 365 / 12)).strftime("%Y-%m")]
             elif filterp == 'last3_month':
-                event_df = event_df[(event_df.event_ym == (datetime.datetime.today() - datetime.timedelta(1 * 365 / 12)).strftime("%Y-%m")) | 
+                event_df = event_df[(event_df.event_ym == (datetime.datetime.today() - datetime.timedelta(1 * 365 / 12)).strftime("%Y-%m")) |
                                     (event_df.event_ym == (datetime.datetime.today() - datetime.timedelta(2 * 365 / 12)).strftime("%Y-%m")) |
                                     (event_df.event_ym == (datetime.datetime.today() - datetime.timedelta(3 * 365 / 12)).strftime("%Y-%m"))]
             elif filterp == 'last6_month':
-                event_df = event_df[(event_df.event_ym == (datetime.datetime.today() - datetime.timedelta(1 * 365 / 12)).strftime("%Y-%m")) | 
+                event_df = event_df[(event_df.event_ym == (datetime.datetime.today() - datetime.timedelta(1 * 365 / 12)).strftime("%Y-%m")) |
                                     (event_df.event_ym == (datetime.datetime.today() - datetime.timedelta(2 * 365 / 12)).strftime("%Y-%m")) |
                                     (event_df.event_ym == (datetime.datetime.today() - datetime.timedelta(3 * 365 / 12)).strftime("%Y-%m")) |
                                     (event_df.event_ym == (datetime.datetime.today() - datetime.timedelta(4 * 365 / 12)).strftime("%Y-%m")) |
@@ -449,9 +449,9 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
                                     (event_df.event_y == str(datetime.datetime.today().year - 6))]
             elif filterp == 'today':
                 event_df = event_df[(event_df.event_ymd == datetime.datetime.today().strftime("%Y-%m-%d"))]
-                    
+
         return event_df
-    
+
     def refreshFull(self, filter_param='current_year'):
         # Count connected
         connected = self.filterEvent("CONNECTED", group = "ym", filterp=filter_param)
@@ -485,10 +485,10 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 
         full_df = pd.concat([connected, disconnected, upload_count, print_started_count, print_done_count,
                              print_failed_count, print_cancelled_count, print_paused_count, print_resumed_count, error_count], sort=False)
-    
+
         if full_df.empty != True:
             full_df_count = full_df.groupby("event_ym")["event_type"].value_counts().unstack().fillna(0)
-                
+
             self.fullDataset = full_df_count.to_json(orient='index')
             self._plugin_manager.send_plugin_message(self._identifier, dict(fullDataset=self.fullDataset))
         else:
@@ -635,8 +635,8 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
         total = pcbheatbed + hotend + steppermotors + eletronics
 
         # Day kWh
-        
-        # Count print_done 
+
+        # Count print_done
         print_done_count = self.filterEvent("PRINT_DONE", group = "ymd", filterp=filter_param)
 
         # Count print_failed
@@ -757,8 +757,8 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
         total = pcbheatbed + hotend + steppermotors + eletronics
 
         # Day kWh
-        
-        # Count print_done 
+
+        # Count print_done
         print_done_count = self.filterEvent("PRINT_DONE", group = "h", filterp='today')
 
         # Count print_failed
@@ -785,25 +785,25 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
                            octoprint.events.Events.PRINT_STARTED, octoprint.events.Events.PRINT_DONE, octoprint.events.Events.PRINT_FAILED,
                            octoprint.events.Events.PRINT_CANCELLED, octoprint.events.Events.PRINT_PAUSED, octoprint.events.Events.PRINT_RESUMED,
                            octoprint.events.Events.ERROR]
-        
+
         if not event in supportedEvents:
             return
-        
+
         self._logger.info("Printer Stats - on_event")
 
         # prevent run of not fully started plugin
         if not hasattr(self, 'statDB'):
             return
-        
+
         eventData = None
         if event == octoprint.events.Events.CONNECTED:
             port = payload["port"]
             baudrate = payload["baudrate"]
-            eventData = {'event_type': 'CONNECTED', 
+            eventData = {'event_type': 'CONNECTED',
                          'data': {'event_time': datetime.datetime.today().__str__(), 'port': port, 'baudrate': baudrate}}
 
         if event == octoprint.events.Events.DISCONNECTED:
-            eventData = {'event_type': 'DISCONNECTED', 
+            eventData = {'event_type': 'DISCONNECTED',
                          'data': {'event_time': datetime.datetime.today().__str__()}}
 
         if event == octoprint.events.Events.UPLOAD:
@@ -815,7 +815,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
                 file = ""
             target = payload["target"]
             name = payload["name"]
-            eventData = {'event_type': 'UPLOAD', 
+            eventData = {'event_type': 'UPLOAD',
                          'data': {'event_time': datetime.datetime.today().__str__(), 'file': file, 'target': target, 'name': name}}
 
         if event == octoprint.events.Events.PRINT_STARTED:
@@ -847,7 +847,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
                 if "tool2" in temps:
                     tool2_target = temps["tool2"]["target"]
 
-            eventData = {'event_type': 'PRINT_STARTED', 
+            eventData = {'event_type': 'PRINT_STARTED',
                          'data': {'event_time': datetime.datetime.today().__str__(), 'file': file, 'origin': origin, 'bed_target': bed_target, 'tool0_target': tool0_target, 'tool1_target': tool1_target, 'tool2_target': tool2_target, 'size': size, 'owner': owner, 'user': user, 'name': name}}
 
         if event == octoprint.events.Events.PRINT_DONE:
@@ -902,7 +902,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
                         tool2_volume = printData["analysis"]["filament"]["tool2"]["volume"]
                         tool2_length = printData["analysis"]["filament"]["tool2"]['length']
 
-            eventData = {'event_type': 'PRINT_DONE', 
+            eventData = {'event_type': 'PRINT_DONE',
                          'data': {'event_time': datetime.datetime.today().__str__(), 'file': file, 'ptime': ptime, 'origin': origin, 'bed_actual': bed_actual, 'tool0_actual': tool0_actual, 'tool1_actual': tool1_actual, 'tool2_actual': tool2_actual, 'tool0_volume': tool0_volume, 'tool1_volume': tool1_volume, 'tool2_volume': tool2_volume, 'tool0_length': tool0_length, 'tool1_length': tool1_length, 'tool2_length': tool2_length, 'name': name, 'size': size, 'owner': owner}}
 
         if event == octoprint.events.Events.PRINT_FAILED:
@@ -919,7 +919,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             ptime = payload['time']
             reason = payload['reason']
 
-            eventData = {'event_type': 'PRINT_FAILED', 
+            eventData = {'event_type': 'PRINT_FAILED',
                          'data': {'event_time': datetime.datetime.today().__str__(), 'file': file, 'origin': origin, 'name': name, 'size': size, 'owner': owner, 'ptime': ptime, 'reason': reason}}
 
         if event == octoprint.events.Events.PRINT_CANCELLED:
@@ -936,7 +936,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             user = payload["user"]
             ptime = payload["time"]
 
-            eventData = {'event_type': 'PRINT_CANCELLED', 
+            eventData = {'event_type': 'PRINT_CANCELLED',
                          'data': {'event_time': datetime.datetime.today().__str__(), 'file': file, 'origin': origin, 'name': name, 'size': size, 'owner': owner, 'user': user, 'ptime': ptime}}
 
         if event == octoprint.events.Events.PRINT_PAUSED:
@@ -952,7 +952,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             owner = payload["owner"]
             user = payload["user"]
 
-            eventData = {'event_type': 'PRINT_PAUSED', 
+            eventData = {'event_type': 'PRINT_PAUSED',
                          'data': {'event_time': datetime.datetime.today().__str__(), 'file': file, 'origin': origin, 'name': name, 'size': size, 'owner': owner, 'user': user}}
 
         if event == octoprint.events.Events.PRINT_RESUMED:
@@ -968,28 +968,28 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             owner = payload["owner"]
             user = payload["user"]
 
-            eventData = {'event_type': 'PRINT_RESUMED', 
+            eventData = {'event_type': 'PRINT_RESUMED',
                          'data': {'event_time': datetime.datetime.today().__str__(), 'file': file, 'origin': origin, 'name': name, 'size': size, 'owner': owner, 'user': user}}
 
         if event == octoprint.events.Events.ERROR:
             perror = payload["error"]
 
-            eventData = {'event_type': 'ERROR', 
+            eventData = {'event_type': 'ERROR',
                          'data': {'event_time': datetime.datetime.today().__str__(), 'error': perror}}
 
         if eventData != None:
             self.statDB.execute(eventData, 'events')
-            
-            
+
+
             # Disabled refresh at all events for reduce CPU usage
-            
+
             #self.refreshFull(filter_param=self.current_filter)
             #self.refreshHour(filter_param=self.current_filter)
             #self.refreshDay(filter_param=self.current_filter)
             #self.refreshPrint(filter_param=self.current_filter)
             #self.refreshTime(filter_param=self.current_filter)
             #self.refreshWatts(filter_param=self.current_filter)
-            
+
             # Side
             #self.refreshSidePrint()
             #self.refreshSideDay()
@@ -1009,7 +1009,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
                 current=self._plugin_version,
 
                 # update method: pip w/ dependency links
-                pip="https://github.com/AlexVerrico/octoprint-stats/archive/{target_version}.zip"
+                pip="https://github.com/AlexVerrico/octoprint-stats/archive/py2.zip"
             )
         )
 
@@ -1019,7 +1019,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 # can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
 __plugin_name__ = "Printer Stats"
 __plugin_version__ = "3.0.0"
-__plugin_pythoncompat__ = ">=2.7,<4"
+__plugin_pythoncompat__ = ">=2.7,<3"
 __plugin_description__ = "Statistics of your 3D Printer"
 
 def __plugin_load__():
