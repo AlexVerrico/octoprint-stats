@@ -68,7 +68,7 @@ $(function () {
 
         fillColor['ERROR'] = 'rgba(241,196,15,0.5)';
         label['ERROR'] = 'Error';
-        stack['ERROR'] = 'Print';
+        stack['ERROR'] = 'Conn';
 
         fillColor['kwh'] = 'rgba(241,196,15,0.5)';
         label['kwh'] = 'kWh';

@@ -20,10 +20,13 @@ import pandas as pd
 class StatsDB:
     def __init__(self, plugin):
         self.DB_NAME_V1 = plugin._settings.global_get_basefolder("logs") + "/octoprint_stats.db"
-        self.DB_NAME = plugin._settings.global_get_basefolder("logs") + "/octoprint_stats.json"
+        self.DB_NAME_V2 = plugin._settings.global_get_basefolder("logs") + "/octoprint_stats.json"
+        self.DB_NAME = plugin._settings.global_get_basefolder("data") + "/octoprint_stats.json"
         
         if os.path.exists(self.DB_NAME_V1) == True:
             self.migrate_v1()
+        if os.path.exists(self.DB_NAME_V2) == True:
+            os.rename(self.DB_NAME_V2, self.DB_NAME)
         
     def migrate_v1(self):
         conn = sqlite3.connect(self.DB_NAME_V1)
@@ -905,7 +908,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
             eventData = {'event_type': 'PRINT_DONE', 
                          'data': {'event_time': datetime.datetime.today().__str__(), 'file': file, 'ptime': ptime, 'origin': origin, 'bed_actual': bed_actual, 'tool0_actual': tool0_actual, 'tool1_actual': tool1_actual, 'tool2_actual': tool2_actual, 'tool0_volume': tool0_volume, 'tool1_volume': tool1_volume, 'tool2_volume': tool2_volume, 'tool0_length': tool0_length, 'tool1_length': tool1_length, 'tool2_length': tool2_length, 'name': name, 'size': size, 'owner': owner}}
 
-        if event == octoprint.events.Events.PRINT_FAILED:
+        if event == octoprint.events.Events.PRINT_FAILED and payload["reason"] == "error":
             if payload["path"] != None:
                 file = payload["path"]
             elif payload["file"] != None:
