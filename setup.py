@@ -33,7 +33,7 @@ plugin_url = "https://github.com/AlexVerrico/octoprint-stats/"
 plugin_license = "AGPLv3"
 
 # Any additional requirements besides OctoPrint should be listed here
-plugin_requires = ["tinydb", "pandas", "numpy"]
+plugin_requires = ["tinydb", "pandas", "numpy>=1.16.0,<1.19.0"]
 
 ### --------------------------------------------------------------------------------------------------------------------
 ### More advanced options that you usually shouldn't have to touch follow after this point
