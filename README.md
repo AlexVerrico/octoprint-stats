@@ -26,5 +26,5 @@ Please note that the Python 2 version will no longer receive updates, it is stro
 ![Screenshot 4](https://github.com/AlexVerrico/octoprint-stats/raw/master/extras/img4.png)
 
 ## Ownership history
-Versions up to and including 2.0.2 - [Anderson Silva](https://github.com/amsbr)
-Version 3.0.0 to present - [Alex Verrico](https://github.com/AlexVerrico/)
+Versions up to and including 2.0.2 - [Anderson Silva](https://github.com/amsbr)  
+Version 3.0.0 to present - [Alex Verrico](https://github.com/AlexVerrico/)  
