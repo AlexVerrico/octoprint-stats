@@ -1022,7 +1022,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 # can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
 __plugin_name__ = "Printer Stats"
 __plugin_version__ = "3.1.1"
-__plugin_pythoncompat__ = ">=3.5,<4"
+__plugin_pythoncompat__ = ">=3.6,<4"
 __plugin_description__ = "Statistics of your 3D Printer"
 
 def __plugin_load__():
