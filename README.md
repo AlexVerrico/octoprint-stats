@@ -25,6 +25,12 @@ Please note that the Python 2 version will no longer receive updates, it is stro
 ![Screenshot 3](https://github.com/AlexVerrico/octoprint-stats/raw/master/extras/img3.png)
 ![Screenshot 4](https://github.com/AlexVerrico/octoprint-stats/raw/master/extras/img4.png)
 
+## Contributing
+Contributions are always welcome, provided that:  
+ - You follow the coding style
+ - Make all PR's to the dev branch
+ - Ensure that PRs include a good description of the changes you have made, the reason for them, and what version(s) of Python and Octoprint you have tested the changes on.
+
 ## Ownership history
 Versions up to and including 2.0.2 - [Anderson Silva](https://github.com/amsbr)  
 Version 3.0.0 to present - [Alex Verrico](https://github.com/AlexVerrico/)  
