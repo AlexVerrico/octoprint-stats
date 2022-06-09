@@ -797,6 +797,11 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
         # prevent run of not fully started plugin
         if not hasattr(self, 'statDB'):
             return
+        
+        if "owner" not in payload:
+            payload["owner"] = "N/A"
+        if "user" not in payload:
+            payload["user"] = "N/A"
 
         eventData = None
         if event == octoprint.events.Events.CONNECTED:
@@ -1021,7 +1026,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
 # can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
 __plugin_name__ = "Printer Stats"
-__plugin_version__ = "3.1.2"
+__plugin_version__ = "3.1.3"
 __plugin_pythoncompat__ = ">=3.6,<4"
 __plugin_description__ = "Statistics of your 3D Printer"
 
