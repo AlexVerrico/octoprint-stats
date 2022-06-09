@@ -797,6 +797,11 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
         # prevent run of not fully started plugin
         if not hasattr(self, 'statDB'):
             return
+        
+        if "owner" not in payload:
+            payload["owner"] = "N/A"
+        if "user" not in payload:
+            payload["user"] = "N/A"
 
         eventData = None
         if event == octoprint.events.Events.CONNECTED:
