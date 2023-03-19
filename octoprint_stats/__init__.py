@@ -450,6 +450,8 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
                                     (event_df.event_y == str(datetime.datetime.today().year - 4)) |
                                     (event_df.event_y == str(datetime.datetime.today().year - 5)) |
                                     (event_df.event_y == str(datetime.datetime.today().year - 6))]
+            elif filterp == 'all_time':
+                event_df = event_df
             elif filterp == 'today':
                 event_df = event_df[(event_df.event_ymd == datetime.datetime.today().strftime("%Y-%m-%d"))]
 
