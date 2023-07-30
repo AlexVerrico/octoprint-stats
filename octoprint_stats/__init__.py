@@ -653,7 +653,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 
         if print_df.empty != True:
             print_df["kwh"] = print_df["ptime"].apply(self.calcKwh, total=total)
-            print_df_sum = print_df.groupby("event_ymd")["kwh", "ptime"].sum()
+            print_df_sum = print_df.groupby("event_ymd")[["kwh", "ptime"]].sum()
 
             self.dkwhDataset = print_df_sum.to_json(orient='index')
             self._plugin_manager.send_plugin_message(self._identifier, dict(dkwhDataset=self.dkwhDataset))
@@ -675,7 +675,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 
         if print_df.empty != True:
             print_df["kwh"] = print_df["ptime"].apply(self.calcKwh, total=total)
-            print_df_sum = print_df.groupby("event_ym")["kwh", "ptime"].sum()
+            print_df_sum = print_df.groupby("event_ym")[["kwh", "ptime"]].sum()
 
             self.mkwhDataset = print_df_sum.to_json(orient='index')
             self._plugin_manager.send_plugin_message(self._identifier, dict(mkwhDataset=self.mkwhDataset))
@@ -775,7 +775,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 
         if print_df.empty != True:
             print_df["kwh"] = print_df["ptime"].apply(self.calcKwh, total=total)
-            print_df_sum = print_df.groupby("event_h")["kwh", "ptime"].sum()
+            print_df_sum = print_df.groupby("event_h")[["kwh", "ptime"]].sum()
 
             self.todaykWhDataset = print_df_sum.to_json(orient='index')
             self._plugin_manager.send_plugin_message(self._identifier, dict(todaykWhDataset=self.todaykWhDataset))
