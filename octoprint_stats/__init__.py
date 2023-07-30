@@ -1026,7 +1026,7 @@ class StatsPlugin(octoprint.plugin.EventHandlerPlugin,
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
 # can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
 __plugin_name__ = "Printer Stats"
-__plugin_version__ = "3.1.3"
+__plugin_version__ = "3.1.4"
 __plugin_pythoncompat__ = ">=3.6,<4"
 __plugin_description__ = "Statistics of your 3D Printer"
 
