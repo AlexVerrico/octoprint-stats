@@ -2,8 +2,6 @@
 
 This plugin is designed to show statistics of your printer and estimate power usage in kWh.
 
-#### if you want to contribute, please join the gitter chat so that we can better coordinate: https://gitter.im/AlexVerricoChat/octoprint-stats
-
 ## Setup
 #### Important! You may need to install the system package libatlas-base-dev for this plugin to work by running `sudo apt install libatlas-base-dev`.
 ### Python 3:
