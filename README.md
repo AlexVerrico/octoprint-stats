@@ -3,7 +3,7 @@
 This plugin is designed to show statistics of your printer and estimate power usage in kWh.
 
 ## Setup
-#### Important! You may need to install the system package libatlas-base-dev for this plugin to work by running `sudo apt install libatlas-base-dev`.
+#### Important! You may need to install the system package libopenblas-dev for this plugin to work by running `sudo apt-get install libopenblas-dev`.
 ### Python 3:
 Install via the bundled [Plugin Manager](https://github.com/foosel/OctoPrint/wiki/Plugin:-Plugin-Manager)
 or manually using this URL:
